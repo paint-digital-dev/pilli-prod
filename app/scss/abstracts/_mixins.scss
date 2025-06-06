@@ -1,0 +1,15 @@
+@import "./variables";
+
+@mixin adaptive-value($property, $startSize, $minSize) {
+  $addSize: $startSize - $minSize;
+
+  #{$property}: $startSize + px;
+
+  @media (max-width: #{$maxWidthContainer + px}) {
+    #{$property}: calc(#{$minSize + px} + #{$addSize} * ((100vw - #{$minWidth + px}) / #{$maxWidthContainer - $minWidth}))
+  }
+
+  @media (max-width: 360px) {
+    #{$property}: $minSize + px;
+  }
+}

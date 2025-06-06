@@ -1,0 +1,53 @@
+.footer {
+  background-color: $color-accent-secondary;
+  color: $color-text-secondary;
+  padding: 36px 0;
+  box-shadow: 0 5px 0 0 #bd4045;
+
+  &__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px 32px;
+    flex-wrap: wrap;
+  }
+
+  &__socials {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .woofc-menu-item {
+    display: none !important;
+  }
+
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__link {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  &__offer {
+    text-decoration: underline;
+  }
+
+  &__scroll {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+    line-height: 100%;
+  }
+}

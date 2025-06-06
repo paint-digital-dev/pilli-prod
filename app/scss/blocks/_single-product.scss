@@ -1,0 +1,253 @@
+// Product detail page layout
+div.product {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  gap: 18px;
+  position: relative;
+
+  .price {
+    font-size: 16px;
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Product list item styles
+li.product {
+  box-shadow: $light-shadow;
+}
+
+// Product title styles
+.product_title {
+  margin-top: auto;
+  font-family: "Montserrat", sans-serif;
+  line-height: 113%;
+  grid-column: 2 / 4;
+  color: $color-accent-secondary;
+  text-transform: uppercase;
+  font-size: 68px;
+  font-weight: 500;
+  word-break: break-word;
+
+  @media (max-width: 1024px) {
+    grid-column: unset;
+    font-size: 36px;
+  }
+}
+
+// Product gallery styles
+.woocommerce-product-gallery {
+  position: sticky;
+  grid-row: 1 / 3;
+  top: 96px;
+
+  img {
+    width: 100%;
+    height: auto;
+    max-height: 530px;
+    object-fit: contain;
+
+    @media (max-width: 1024px) {
+      max-height: 400px;
+    }
+  }
+
+  &__wrapper a {
+    display: block;
+  }
+
+  &__image a {
+    pointer-events: none;
+  }
+
+  @media (max-width: 1024px) {
+    grid-column: unset;
+    position: static;
+  }
+}
+
+// Product price and SKU styles
+.product-price,
+.cart .price {
+  margin: 8px 0 16px 0 !important;
+  font-weight: 700;
+  font-size: 16px !important;
+}
+
+.product-sku {
+  font-size: 16px !important;
+
+  .product & {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0 !important;
+  }
+}
+
+p.price {
+  display: none;
+}
+
+// Product summary styles
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  p {
+    padding-bottom: 12px;
+    border-bottom: 1px solid $color-text-primary;
+    text-align: justify;
+  }
+
+  ul {
+    padding-left: 24px;
+    list-style-type: disc;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #413d3e;
+    text-align: justify;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  & + form.cart {
+    background-color: $color-text-secondary;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: $light-shadow;
+    position: sticky;
+    top: 96px;
+
+    @media (max-width: 1024px) {
+      position: static;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    order: 1;
+  }
+
+  @media (max-width: 700px) {
+    gap: 12px !important;
+
+    p {
+      padding-bottom: 12px !important;
+    }
+  }
+}
+
+// Product short description styles
+.product-short-description {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+// Product info wrapper styles
+.product-info-wrapper {
+  &.top-of-form p {
+    margin-bottom: 8px;
+  }
+}
+
+// Form elements and custom select styles
+.custom-select-wrap {
+  display: grid;
+  grid-template-columns: 0.5fr 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 16px;
+  justify-content: space-between;
+}
+
+button.button.alt {
+  width: 100%;
+  grid-column: 1 / 3;
+}
+
+select {
+  max-width: unset !important;
+  min-width: max-content !important;
+  width: 100% !important;
+  padding: 4px 8px !important;
+  background-image: unset !important;
+  appearance: none !important;
+  display: block !important;
+  background-color: $color-text-secondary !important;
+  cursor: pointer !important;
+  border: 1px solid $color-text-primary !important;
+  border-radius: 20px !important;
+  color: $color-text-primary;
+  font-size: inherit;
+
+  option {
+    font-size: 15px;
+  }
+}
+
+label,
+.label {
+  text-align: left;
+  font-weight: 400;
+}
+
+// Table styles
+table {
+  width: 100%;
+  margin-bottom: 0 !important;
+}
+
+// Custom dropdown arrow styling
+.filter__inner,
+.woocommerce-ordering,
+.custom-select-inner {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    background: url('https://pilli.paintdigital.agency/wp-content/uploads/2025/05/arrow-drop-down-line.svg') no-repeat center;
+    background-size: contain;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+}
+
+// Quick view popup styles
+.woosq-popup .wp-post-image {
+  max-width: 360px;
+  height: 100%;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+// Quantity input styles
+.quantity input {
+  width: 50px;
+  text-align: center;
+}
+
+// Variation styles
+.woocommerce-variation-add-to-cart,
+.woocommerce-variation.single_variation {
+  margin-top: 16px;
+}
+
+// Hidden elements
+.onsale,
+.related.products,
+.product_meta,
+form.cart .quantity,
+.woocommerce-variation-add-to-cart.variations_button .quantity,
+.reset_variations,
+.single_variation_wrap .product-info-wrapper {
+  display: none !important;
+}

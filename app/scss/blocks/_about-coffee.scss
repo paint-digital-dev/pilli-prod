@@ -1,0 +1,81 @@
+.about-coffee {
+  position: relative;
+  background-image: url('https://pilli.paintdigital.agency/wp-content/uploads/2024/10/about-bg-decor.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+
+  &__item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 32px;
+
+    ol, ul {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    @media (max-width: 1024px) {
+      grid-template-columns: 1fr;
+
+      &:nth-child(2n) {
+        display: flex;
+        flex-direction: column;
+
+        .about-coffee__images {
+          order: 2;
+        }
+      }
+    }
+  }
+
+  &__images {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+
+    .about-coffee__svg {
+      position: absolute;
+      top: 0;
+    }
+
+    .about-coffee__svg_left {
+      left: 0;
+      max-width: 100px;
+    }
+
+    .about-coffee__svg_right {
+      right: 0;
+    }
+
+    .message-label {
+      max-width: 220px;
+      transform: rotate(30deg);
+      right: 30px;
+      top: 30px;
+    }
+  }
+
+  &__title {
+    margin-bottom: 32px;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  ol {
+    list-style-type: auto;
+    padding-left: 28px;
+  }
+}

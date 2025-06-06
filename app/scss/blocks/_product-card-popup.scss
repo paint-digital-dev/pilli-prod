@@ -1,0 +1,120 @@
+.product-card-popup {
+  #grind-popup-close {
+    color: $color-text-primary;
+  }
+
+  &__layout {
+    position: fixed;
+    background-color: rgba(0, 0, 0, .7);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+
+    &_active {
+      pointer-events: auto;
+      opacity: 1;
+      transition: all .3s;
+      z-index: 10000;
+
+      .product-card-popup__content {
+        transform: translateY(-20px);
+        transition: all .3s;
+      }
+    }
+
+    &_inactive {
+      pointer-events: none;
+      opacity: 0;
+      transition: all .3s;
+      z-index: -1;
+
+      .product-card-popup__content {
+        transform: translateY(20px);
+        transition: all .3s;
+      }
+    }
+  }
+
+  &__content {
+    background-color: $color-text-secondary;
+    padding: 24px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    margin: 16px;
+    box-shadow: $light-shadow;
+
+    .pomel-block {
+      position: relative;
+      cursor: pointer;
+      padding: 10px 0;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid $color-text-primary;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .product-card-popup__close {
+      font-size: 32px;
+    }
+  }
+}
+
+.pomel-block.loading {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.pomel-block .spinner {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  transform: translateY(-50%);
+  border: 2px solid #ccc;
+  border-top-color: $color-text-primary;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.product-title-placeholder {
+  padding-bottom: 10px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: -24px;
+    right: -24px;
+    bottom: 0;
+    height: 1px;
+    background-color: $color-text-primary;
+  }
+}
+
+.pomel-blocks {
+  max-height: 360px;
+  overflow: auto;
+}

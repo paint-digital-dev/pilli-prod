@@ -1,0 +1,139 @@
+.coffee {
+  position: relative;
+  background-image: url('https://pilli.paintdigital.agency/wp-content/uploads/2024/10/coffee-bg-decor-1.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 60px;
+  }
+
+  &__top-title {
+    margin-bottom: 16px;
+  }
+
+  &__top-btn {
+    margin-top: 36px;
+  }
+
+  &__bottom {
+    position: relative;
+    padding: 140px 0;
+  }
+
+  &__bottom-img {
+    max-width: 650px;
+    transform: translateX(-300px);
+  }
+
+  &__bottom-item {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    max-width: 600px;
+
+    svg {
+      position: absolute;
+      left: -130px;
+    }
+
+    &_top {
+      right: 20%;
+      top: 0;
+    }
+
+    &_middle {
+      right: 0;
+      top: 30%;
+    }
+
+    &_bottom {
+      right: 20%;
+      bottom: 0;
+    }
+
+    &_top svg {
+      transform: rotate(-25deg);
+    }
+
+    &_middle {
+      right: 0;
+      top: 30%;
+    }
+
+    &_bottom svg {
+      transform: rotate(25deg);
+    }
+  }
+
+  &__bottom-title {
+    margin-bottom: 16px;
+    padding-right: 35px;
+    width: max-content;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      background-image: url('https://pilli.paintdigital.agency/wp-content/uploads/2024/10/coffee-bean-decororative.svg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 50px;
+      height: 63px;
+      right: 0;
+      top: -20px;
+    }
+  }
+
+  &__bottom-thumbnail {
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .coffee {
+    &__top {
+      grid-template-columns: 1fr;
+      gap: 20px 16px;
+    }
+
+    &__top-content_row {
+      grid-column: auto;
+    }
+
+    &__top-content_row .coffee__top-title,
+    &__top-content_row .coffee__top-subtitle {
+      max-width: 100%;
+    }
+
+    &__bottom-img {
+      display: none;
+    }
+
+    &__bottom {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      padding: 0;
+    }
+
+    &__bottom-item {
+      position: static;
+      max-width: 100%;
+      svg {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .coffee__bottom-item {
+    flex-direction: column;
+  }
+}

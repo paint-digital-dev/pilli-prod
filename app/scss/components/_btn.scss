@@ -1,0 +1,87 @@
+@keyframes spin-centered {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+.btn,
+.button,
+#place_order,
+[name=apply_coupon],
+:where(body:not(.woocommerce-block-theme-has-button-styles)):where(:not(.edit-post-visual-editor)) .woocommerce button.button {
+  display: inline-block;
+  color: $color-text-secondary;
+  font-size: 16px;
+  line-height: 120% !important;
+  font-weight: 400;
+  padding: 8px 24px;
+  border-radius: 40px;
+  background-color: $color-accent-secondary;
+  box-shadow: $accent-shadow;
+  transition: all .2s;
+  white-space: nowrap;
+  text-align: center;
+  position: relative;
+  user-select: none;
+  @media (max-width: 1024px) {
+    padding: 8px 20px;
+  }
+
+  @media (max-width: 500px) {
+    padding: 8px 16px;
+  }
+
+  &.added {
+    &:after {
+      content: '';
+      position: absolute;
+      background-image: url('https://pilli.paintdigital.agency/wp-content/uploads/2025/05/check.svg');
+      width: 16px;
+      height: 16px;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
+  &.loading {
+    pointer-events: none;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      transform: translateY(-50%) rotate(0deg);
+      animation: spin-centered 0.8s linear infinite;
+      box-sizing: border-box;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    &:active {
+      box-shadow: $accent-shadow-active;
+      transform: translateY(2px);
+    }
+  }
+}
+
+:where(body:not(.woocommerce-block-theme-has-button-styles)):where(:not(.edit-post-visual-editor)) .woocommerce button.button:hover {
+  background-color: $color-accent-secondary !important;
+  text-decoration: none;
+  background-image: none;
+  color: $color-text-secondary !important;
+}

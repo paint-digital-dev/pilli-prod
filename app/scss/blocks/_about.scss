@@ -1,0 +1,173 @@
+.about {
+  position: relative;
+  background-image: url('https://pilli.paintdigital.agency/wp-content/uploads/2024/10/about-bg-decor.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+
+  &__top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+
+  &__top-title {
+    margin-bottom: 16px;
+  }
+
+  &__top-subtitle {
+    margin-bottom: 36px;
+    max-width: 425px;
+  }
+
+  &__top-composition {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  &__top-message {
+    max-width: 160px;
+
+    &_top {
+      top: 50%;
+      left: 0;
+      transform: rotate(-20deg);
+    }
+
+    &_bottom {
+      top: 10%;
+      right: 0;
+      transform: rotate(30deg);
+    }
+  }
+
+  &__top-img {
+    max-width: 570px;
+    width: 100%;
+  }
+
+  &__top-btns {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+        "col1 col2"
+        "col3 col2"
+        "col3 col4";
+    gap: 16px;
+  }
+
+  &__item-title {
+    margin-bottom: 16px;
+  }
+
+  &__item-message {
+    max-width: 210px;
+
+    &_right {
+      top: 20%;
+      right: 0;
+      transform: rotate(22deg);
+    }
+
+    &_left {
+      top: 20%;
+      left: 0;
+      transform: rotate(-14deg);
+    }
+  }
+
+  &__img-wrapper {
+    position: relative;
+  }
+
+  &__img {
+    max-width: 480px;
+    margin: auto;
+  }
+
+  #col1 {
+    grid-area: col1;
+  }
+
+  #col2 {
+    grid-area: col2;
+  }
+
+  #col3 {
+    grid-area: col3;
+  }
+
+  #col4 {
+    grid-area: col4;
+  }
+}
+
+@media (max-width: 1060px) {
+  .about {
+    &__top-img {
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .about {
+    &__top {
+      grid-template-columns: 1fr;
+    }
+
+    &__top-img {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &__items {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "col1"
+        "col2"
+        "col4"
+        "col3";
+    }
+
+    &__img {
+      max-width: 400px;
+      width: 100%;
+    }
+  }
+
+
+  .about__img-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .coffee__img, {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .about {
+    &__top-btns {
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    &__top-video svg {
+      max-width: 72px;
+    }
+  }
+}

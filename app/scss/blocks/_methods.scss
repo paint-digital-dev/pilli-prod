@@ -1,0 +1,150 @@
+.methods {
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px 40px;
+  }
+
+  &__item-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  &__title,
+  &__item-img {
+    margin-bottom: 16px;
+  }
+
+  &__item-title {
+    margin-bottom: 8px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .methods__items {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .methods__items {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .methods__item-title {
+    margin-bottom: 12px;
+  }
+}
+
+// POPUP
+
+.methods-popup {
+  &__layout {
+    position: fixed;
+    background-color: rgba(0, 0, 0, .7);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+
+    &_active {
+      pointer-events: auto;
+      opacity: 1;
+      transition: all .3s;
+      z-index: 10000;
+
+      .methods-popup__content {
+        transition: all .3s;
+      }
+    }
+
+    &_inactive {
+      pointer-events: none;
+      opacity: 0;
+      transition: all .3s;
+      z-index: -1;
+
+      .methods-popup__content {
+        transition: all .3s;
+      }
+    }
+  }
+
+  &__img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  &__content {
+    position: relative;
+    background-color: $color-text-secondary;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 60%;
+    max-height: 85%;
+    overflow: auto;
+    margin: auto;
+
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+      max-height: 100%;
+      margin: 0;
+      border-radius: 0;
+    }
+
+    -webkit-overflow-scrolling: touch;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+    }
+
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+  }
+
+  &__descr {
+    padding: 20px;
+    font-size: 16px;
+
+    h3, p {
+      margin-bottom: 12px;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    ul {
+      list-style-type: initial;
+      padding-left: 16px;
+    }
+  }
+
+  &__close {
+    position: fixed;
+    right: 16px;
+    top: 16px;
+    cursor: pointer;
+    background-color: #333;
+
+    color: #fff;
+  }
+}

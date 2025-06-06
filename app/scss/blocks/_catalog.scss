@@ -1,0 +1,237 @@
+// Global WooCommerce elements
+.woocommerce {
+  &-breadcrumb {
+    font-size: 16px;
+    margin-bottom: 32px;
+    display: inline-block;
+
+    a {
+      font-weight: 700;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+  }
+
+  &-result-count {
+    display: none !important;
+  }
+
+  &-notices-wrapper {
+    display: none;
+  }
+
+  &-pagination {
+    margin-top: 24px;
+  }
+
+  &-ordering {
+    @media (max-width: 768px) {
+      width: 100% !important;
+    }
+  }
+}
+
+// Filter styles
+.product__filters {
+  &-inner {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    select {
+      width: 300px !important;
+      min-width: unset !important;
+      border: none !important;
+      border-bottom: 1px solid $color-text-primary !important;
+      background-color: transparent !important;
+      border-radius: 0 !important;
+      appearance: none !important;
+
+      @media (max-width: 768px) {
+        width: 100% !important;
+      }
+    }
+
+    .reset-filters-button {
+      padding: 4px 8px;
+      color: $color-text-primary;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+}
+
+// Premmerce filter styles
+.premmerce {
+  &-active-filters-widget-wrapper {
+    display: none;
+  }
+
+  &-filter-body {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+}
+
+.filter {
+  &__title {
+    display: none;
+  }
+
+  &__item,
+  &__inner {
+    margin: 0;
+  }
+
+  &__item {
+    @media (max-width: 768px) {
+      width: 100% !important;
+    }
+  }
+}
+
+.widget_premmerce_filter_filter_widget {
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+}
+
+// Product grid styles
+.products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 16px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .button,
+  .add_to_cart_button.ajax_add_to_cart,
+  .single_add_to_cart_button {
+    white-space: nowrap;
+  }
+}
+
+// Product item styles
+li.product {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 14px 14px 20px 14px;
+  background-color: $color-text-secondary;
+  border-radius: 20px;
+
+  img {
+    margin: 0 auto;
+    object-fit: contain;
+    height: 100%;
+    max-height: 300px;
+    width: 100%;
+    max-width: 300px;
+
+    @media (max-width: 1024px) {
+      max-height: 240px;
+    }
+
+    @media (max-width: 500px) {
+      max-height: 160px;
+    }
+  }
+
+  .price {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 105%;
+    margin-bottom: 12px;
+
+    @media (max-width: 500px) {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .button {
+      padding: 4px 16px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    padding: 10px 10px 16px 10px;
+  }
+
+  @media (max-width: 425px) {
+    .button {
+      font-size: 14px;
+    }
+  }
+}
+
+// Product link and title styles
+.woocommerce-LoopProduct-link.woocommerce-loop-product__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.woocommerce-loop-product__title {
+  font-size: 18px;
+  line-height: 113%;
+  margin: 16px 0;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  @media (max-width: 1024px) {
+    font-size: 18px;
+    margin: 12px 0;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+
+  @media (max-width: 425px) {
+    word-break: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    margin: 8px 0;
+  }
+}
+
+// Pagination styles
+.page-numbers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  .current {
+    text-decoration: underline;
+  }
+}
+
+// Hide certain elements
+.woofc-menu-item-inner-subtotal,
+.added_to_cart.wc-forward {
+  display: none !important;
+}

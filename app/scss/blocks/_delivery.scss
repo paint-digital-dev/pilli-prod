@@ -1,0 +1,32 @@
+.delivery__title {
+  margin-bottom: 16px;
+}
+
+.delivery__items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.delivery__item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: $color-text-secondary;
+  box-shadow: $light-shadow;
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding-left: 24px;
+    list-style-type: disc;
+  }
+}
+
+.delivery__subtitle {
+  font-weight: 700;
+}

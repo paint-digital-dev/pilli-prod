@@ -1,0 +1,44 @@
+.title {
+  color: $color-text-primary;
+  font-weight: 900;
+  line-height: 105%;
+
+  &_light {
+    color: $color-text-secondary;
+  }
+
+  &_primary {
+    font-size: 48px;
+
+    @media (max-width: 768px) {
+      font-size: 32px;
+    }
+
+    @media (max-width: 425px) {
+      font-size: 24px;
+    }
+  }
+
+  &_secondary {
+    font-size: 32px;
+
+    @media (max-width: 768px) {
+      font-size: 24px;
+    }
+
+    @media (max-width: 425px) {
+      font-size: 20px;
+    }
+  }
+}
+
+.subtitle {
+  color: $color-text-primary;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 140%;
+
+  &_light {
+    color: $color-text-secondary;
+  }
+}

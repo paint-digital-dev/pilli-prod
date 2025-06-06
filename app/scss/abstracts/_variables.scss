@@ -1,0 +1,26 @@
+// Containers
+$minWidth: 360;
+$maxWidth: 1920;
+$maxWidthContainer: 1470;
+$containerPadding: 30;
+
+// Breakpoints
+$large-pc: 1920px;
+$pc: 1440px;
+$medium-pc: 1280px;
+$small-pc: 1024px;
+$tablet: 768px;
+$mobile: 600px;
+$small-mobile: 425px;
+
+// Colors
+$color-text-primary: #413d3e; // Основной цвет текста (черный)
+$color-text-secondary: #ffffff; // Второстепенный цвет текста (белый)
+$color-accent-primary: #ff565d; // Основной акцентный цвет (красный)
+$color-accent-secondary: #ff4c53; // Второстепенный акцентный цвет (красный)
+$color-background: #f4f0ed;
+
+// Other
+$accent-shadow: 0 5px 0 0 #bd4045;
+$accent-shadow-active: 0 3px 0 0 #bd4045;
+$light-shadow: 0 5px 0 0 #e8e8e8;

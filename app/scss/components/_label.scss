@@ -1,0 +1,11 @@
+.message-label {
+  position: absolute;
+  line-height: 100%;
+  text-align: center;
+  font-weight: 500;
+  color: $color-text-secondary;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: $color-accent-secondary;
+  box-shadow: 0 5px 0 0 #bd4045;
+}

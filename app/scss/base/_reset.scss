@@ -1,0 +1,69 @@
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+	background-color: transparent;
+	border: none;
+}
+
+a {
+	font: inherit;
+	color: inherit;
+	text-decoration: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+ul,
+ol {
+	list-style-type: none;
+}
+
+svg {
+	display: block;
+}
+
+del {
+	position: relative;
+	text-decoration: none;
+
+	&::after {
+		content: '';
+		position: absolute;
+		background-color: $color-accent-secondary;
+		left: 0;
+		right: 0;
+		width: 100%;
+		height: 1.5px;
+		top: 10px;
+	}
+}
+
+ins {
+	text-decoration: none;
+}
+
+@keyframes wcus-checkout-loader-animation {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
