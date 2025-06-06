@@ -22,7 +22,7 @@ Template Name: Thank you page
                     Понеділок.
                 </p>
             </div>
-            <a href="https://pilli.paintdigital.agency/" class="button thank-you__btn">На головну</a>
+            <a href="/" class="button thank-you__btn">На головну</a>
         </div>
     </div>
 </section>

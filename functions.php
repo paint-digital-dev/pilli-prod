@@ -1,16 +1,4 @@
 <?php
-// Disable Bitrix24 default hooks before anything else
-remove_action('woocommerce_checkout_order_processed', 'flamix_b24_woo_send_order', 10);
-remove_action('woocommerce_payment_complete', 'flamix_b24_woo_send_order', 10);
-add_action('init', function() {
-    remove_action('woocommerce_checkout_order_processed', 'flamix_b24_woo_send_order', 10);
-    remove_action('woocommerce_payment_complete', 'flamix_b24_woo_send_order', 10);
-});
-
-add_action('muplugins_loaded', function() {
-    remove_action('woocommerce_checkout_order_processed', 'flamix_b24_woo_send_order', 10);
-    remove_action('woocommerce_payment_complete', 'flamix_b24_woo_send_order', 10);
-}, 1);
 
 /**
  * Theme Core Functions
@@ -1136,85 +1124,6 @@ function my_render_grind_popup() {
 =            9. BITRIX24 Integration           =
 ==============================================*/
 
-// Disabling standard Bitrix24 hooks
-function disable_bitrix24_checkout_hooks() {
-    remove_all_actions('woocommerce_checkout_order_processed');
-    remove_all_actions('woocommerce_payment_complete');
-    remove_all_actions('woocommerce_order_status_changed');
-}
-add_action('init', 'disable_bitrix24_checkout_hooks', 5);
-
-// Check order shipment status
-function check_order_sent_to_bitrix24($order_id) {
-    try {
-        $queue = new FlamixLocal\WooOrders\Jobs\Order();
-        return $queue->isSentSuccessfully($order_id);
-    } catch (Exception $e) {
-        return false;
-    }
-}
-
-// Disable all automatic order submissions in Bitrix24 from Flamix plugin
-add_action('init', function() {
-    remove_action('woocommerce_new_order', [\Flamix\Bitrix24\WooCommerce\Handlers::class, 'new_order']);
-    remove_action('woocommerce_payment_complete', [\Flamix\Bitrix24\WooCommerce\Handlers::class, 'payment_complete']);
-    remove_action('woocommerce_order_status_changed', [\Flamix\Bitrix24\WooCommerce\Handlers::class, 'sendStatusToBitrix24']);
-    remove_action('woocommerce_checkout_order_processed', [\Flamix\Bitrix24\WooCommerce\Handlers::class, 'dispatchNotSentOrders']);
-}, 1);
-
-// Leave only your order shipment on the required statuses
-add_action('woocommerce_order_status_processing', 'send_order_to_bitrix24_on_status', 20, 2);
-add_action('woocommerce_order_status_completed', 'send_order_to_bitrix24_on_status', 20, 2);
-function send_order_to_bitrix24_on_status($order_id, $order) {
-    if (!$order_id || !$order) return;
-    // Проверяем, не отправлен ли уже заказ
-    if (check_order_sent_to_bitrix24($order_id)) return;
-
-    // Отправка заказа в Bitrix24
-    try {
-        $queue = new FlamixLocal\WooOrders\Jobs\Order();
-        $queue->dispatch($order_id);
-    } catch (Exception $e) {
-        error_log('Ошибка отправки в Bitrix24: ' . $e->getMessage());
-    }
-}
-
-// AJAX send handler
-add_action('wp_ajax_custom_send_to_bitrix24', 'handle_custom_send_to_bitrix24');
-add_action('wp_ajax_nopriv_custom_send_to_bitrix24', 'handle_custom_send_to_bitrix24');
-
-function handle_custom_send_to_bitrix24() {
-    check_ajax_referer('send-to-bitrix24', 'security');
-    
-    $order_id = absint($_POST['order_id']);
-    if (!$order_id) {
-        wp_send_json_error(['message' => 'Invalid order ID']);
-    }
-    
-    // Check for duplicates
-    if (check_order_sent_to_bitrix24($order_id)) {
-        wp_send_json_error([
-            'message' => 'Order already sent to Bitrix24',
-            'already_sent' => true
-        ]);
-        return;
-    }
-
-    try {
-        $queue = new FlamixLocal\WooOrders\Jobs\Order();
-        $job_id = $queue->dispatch($order_id);
-        
-        wp_send_json_success([
-            'job_id' => $job_id,
-            'message' => 'Order queued successfully'
-        ]);
-    } catch (Exception $e) {
-        wp_send_json_error([
-            'message' => $e->getMessage()
-        ]);
-    }
-}
-
 // Checkout callback functions
 function add_call_me_back_checkbox($fields) {
     $fields['billing']['billing_call_me_back'] = array(
@@ -1246,13 +1155,46 @@ add_filter('woocommerce_checkout_fields', 'add_call_me_back_checkbox');
 add_action('woocommerce_checkout_update_order_meta', 'save_call_me_back_field');
 add_filter('woocommerce_form_field', 'remove_optional_text_for_call_me_back', 10, 4);
 
-// Add callback checkbox field to order for Bitrix24
+// Сохраняем значение shipping_type в мета-данные заказа при оформлении чекаута
+add_action('woocommerce_checkout_update_order_meta', function($order_id) {
+    if (isset($_POST['shipping_type'])) {
+        update_post_meta($order_id, 'shipping_type', sanitize_text_field($_POST['shipping_type']));
+    }
+});
+
+// Add callback checkbox field, shipping_type и Nova Poshta warehouse ref для Bitrix24
 add_filter('flamix_bitrix24_integrations_fields_filter', function (array $fields) {
     $order_id = $fields['ORDER_ID'] ?? 0;
     if ($order_id) {
+        $order = wc_get_order($order_id);
+
+        // Передача способа доставки (shipping_type)
+        $shipping_type = get_post_meta($order_id, 'shipping_type', true);
+        if (!empty($shipping_type)) {
+            $fields['CUSTOM_SHIPPING_TYPE'] = $shipping_type;
+        }
+
+        // Передача чекбокса "Передзвоніть мені"
         $call_me_back = get_post_meta($order_id, '_billing_call_me_back', true);
-        if ($call_me_back) {
+        if ($call_me_back !== '') {
             $fields['BILLING_CALL_ME_BACK'] = ($call_me_back === 'yes') ? 'Так' : 'Ні';
+        }
+
+        // Передача рефа отделения Новой Почты
+        if ($order instanceof WC_Order) {
+            $warehouseRef = '';
+            if ($order->has_shipping_method('nova_poshta_shipping')) {
+                $shippingMethods = $order->get_shipping_methods();
+                if (!empty($shippingMethods)) {
+                    $shippingMethod = reset($shippingMethods);
+                    if (is_object($shippingMethod) && method_exists($shippingMethod, 'get_meta')) {
+                        $warehouseRef = $shippingMethod->get_meta('wcus_warehouse_ref');
+                    }
+                }
+            }
+            if (!empty($warehouseRef)) {
+                $fields['NOVA_POSHTA_WAREHOUSE_REF'] = $warehouseRef;
+            }
         }
     }
     return $fields;
@@ -1268,8 +1210,6 @@ function add_call_me_back_to_rest($response, $object, $request)
 }
 
 // Save grind options in bitrix24
-
-// On order creation: save human-readable grind label to meta
 add_action('woocommerce_checkout_create_order_line_item', 'save_grind_label_to_order_item', 20, 4);
 function save_grind_label_to_order_item($item, $cart_item_key, $values, $order)
 {
@@ -1302,40 +1242,6 @@ add_filter('flamix_bitrix24_integrations_product_filter', function (array $produ
     }
     return $products;
 }, 10, 2);
-
-// Function to get shipping meta data
-function custom_wc_ukr_shipping_get_shipping_meta(\WC_Order $order, string $key): string 
-{ 
-    if (!$order->has_shipping_method('nova_poshta_shipping')) {
-        return '';
-    }
-    
-    $shippingMethods = $order->get_shipping_methods();
-    if (count($shippingMethods) === 0) {
-        return '';
-    }
-    
-    $shippingMethod = reset($shippingMethods);
-    return $shippingMethod->get_meta($key);
-}
-
-// Add Nova Poshta warehouse data to order fields for Bitrix24
-add_filter('flamix_bitrix24_integrations_fields_filter', function (array $fields) {
-    $order_id = $fields['ORDER_ID'] ?? 0;
-    if ($order_id) {
-        $order = wc_get_order($order_id);
-        if ($order) {
-            // Get Nova Poshta warehouse ref
-            $warehouseRef = custom_wc_ukr_shipping_get_shipping_meta($order, 'wcus_warehouse_ref');
-            
-            // Add to Bitrix24 fields array
-            if ($warehouseRef) {
-                $fields['NOVA_POSHTA_WAREHOUSE_REF'] = $warehouseRef;
-            }
-        }
-    }
-    return $fields;
-});
 
 // woocommerce emails enable
 add_filter('woocommerce_email_enabled', '__return_false');
