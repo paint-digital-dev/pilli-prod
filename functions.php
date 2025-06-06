@@ -1168,6 +1168,12 @@ add_filter('flamix_bitrix24_integrations_fields_filter', function (array $fields
     if ($order_id) {
         $order = wc_get_order($order_id);
 
+        // Не отправлять в Bitrix24, если заказ не оплачен или не в нужном статусе
+        if (!$order || !in_array($order->get_status(), ['processing', 'completed', 'on-hold'])) {
+            // Возвращаем пустой массив, чтобы заказ не ушёл в Bitrix24
+            return [];
+        }
+
         // Передача способа доставки (shipping_type)
         $shipping_type = get_post_meta($order_id, 'shipping_type', true);
         if (!empty($shipping_type)) {
