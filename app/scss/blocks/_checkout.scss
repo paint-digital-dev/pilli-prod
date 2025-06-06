@@ -1,6 +1,7 @@
 // Main checkout container
 .checkout {
   margin-top: 60px;
+
   input[type="checkbox"] {
     width: 16px;
     height: 16px;
@@ -40,7 +41,7 @@
 
   .form-row {
     padding: 0 !important;
-    margin: 0 0 24px 0 !important;
+    margin: 0 0 20px 0 !important;
     border-radius: 8px;
 
     &::before,
@@ -223,7 +224,24 @@
   font-size: 16px;
   margin: 0 !important;
 
-  p:first-child {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 300px;
+    gap: 0;
+
+    .button {
+      width: 100%;
+    }
+  }
+
+  p {
+    display: block;
+    float: unset;
     margin-bottom: 12px;
   }
 
@@ -267,4 +285,14 @@
 
 .wc-backward {
   text-decoration: underline;
+}
+
+.woocommerce form .form-row-first,
+.woocommerce form .form-row-last {
+  width: 100% !important;
+  float: unset !important;
+}
+
+#billing_last_name_field {
+  margin-bottom: 20px !important;
 }
